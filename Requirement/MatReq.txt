@@ -1,0 +1,7 @@
+OpenCV basics (images & coordinates)
+NumPy for images
+Image preprocessing concepts
+MediaPipe / detection concepts
+Neural network basics
+Model training workflow
+YOLO object detection
