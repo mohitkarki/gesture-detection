@@ -29,10 +29,20 @@ while True:
         # Neural network expects fixed-size clean input
         imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
 
-        # Crop hand region with offset padding
-        imgCrop = img[y-offset : y+h+offset, x-offset : x+w+offset]
+        # SAFE CROPPING (prevents crash when hand is near edges)
+        h_img, w_img, _ = img.shape
+        x1 = max(0, x - offset)
+        y1 = max(0, y - offset)
+        x2 = min(w_img, x + w + offset)
+        y2 = min(h_img, y + h + offset)
+
+        imgCrop = img[y1:y2, x1:x2]
+
+        # Prevent empty image crash
+        if imgCrop.size == 0:
+            continue
+
         imgCropShape = imgCrop.shape   # Get cropped image dimensions
-     
         aspectRatio = h / w  # Calculate aspect ratio (height / width)
 
         # CASE 1: HAND IS TALL (HEIGHT > WIDTH)
@@ -40,6 +50,11 @@ while True:
 
             k = imgSize / h                 # Scaling factor
             wCal = math.ceil(k * w)         # Calculate new width
+
+            # Ensure valid resize
+            if wCal <= 0:
+                continue
+
             imgResize = cv2.resize(imgCrop, (wCal, imgSize))
             imgResizeShape = imgResize.shape
 
@@ -58,6 +73,11 @@ while True:
 
             k = imgSize / w                 # Scaling factor
             hCal = math.ceil(k * h)         # Calculate new height
+
+            # Ensure valid resize
+            if hCal <= 0:
+                continue
+
             imgResize = cv2.resize(imgCrop, (imgSize, hCal))
             imgResizeShape = imgResize.shape
 
@@ -77,7 +97,6 @@ while True:
         )
 
         # Write predicted label (A/B/C)
-        # Syntax: cv2.putText(image, text, position, font, scale, color, thickness)
         cv2.putText(
             imgOutput,
             labels[index],
@@ -104,14 +123,14 @@ while True:
     # Show final output frame
     cv2.imshow("Image", imgOutput)
 
-     # Show final output frame
+    # Show final output frame
     cv2.imshow("Image", imgOutput)
 
-    # Press 'q' to exit program and waitkey(1) wait 1 ms between frames (keeps video running smoothly)
+    # Press 'q' to exit program
     key = cv2.waitKey(1) & 0xFF
     if key == ord('q'):
         break
 
-# Cleanup (runs after loop ends)
+# Cleanup
 cap.release()
 cv2.destroyAllWindows()

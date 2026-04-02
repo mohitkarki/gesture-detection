@@ -1,7 +1,16 @@
-.venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.env
-Requirement/
+# Ignore everything
+*
+
+# Allow .gitignore itself
+!.gitignore
+
+# Allow src folder
+!src/
+src/*
+!src/main.py
+!src/app.py
+!src/test.py
+
+# Allow Requirement folder
+!Requirement/
+!Requirement/*
