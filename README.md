@@ -29,7 +29,7 @@ Real-time hand sign detection system using OpenCV, CVZone, and TensorFlow.
 ## Screenshots
 
 ### Real-Time Detection
-![Realtime Detection](screenshots/realtime_detection.png)
+![Realtime Detection](./screenshots/realtime_detection.png)
 
-### Processed Image
-![Processed Image](screenshots/noHand_detection.png)
+### No Hand Detected
+![No Hand Detected](./screenshots/noHand_detection.png)
