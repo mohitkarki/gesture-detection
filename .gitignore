@@ -8,8 +8,6 @@
 !src/
 src/*
 !src/main.py
-!src/app.py
-!src/test.py
 
 # Allow Requirement folder
 !Requirement/
