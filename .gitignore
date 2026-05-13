@@ -1,14 +1,12 @@
-# Ignore everything
-*
+# Ignore virtual environment
+.venv/
 
-# Allow .gitignore itself
-!.gitignore
+# Ignore Python cache
+__pycache__/
+*.pyc
 
-# Allow src folder
-!src/
-src/*
-!src/main.py
+# Ignore VS Code settings
+.vscode/
 
-# Allow Requirement folder
-!Requirement/
-!Requirement/*
+# Ignore system files
+.DS_Store
